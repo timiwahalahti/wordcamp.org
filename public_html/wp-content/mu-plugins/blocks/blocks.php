@@ -1,4 +1,5 @@
 <?php
+
 namespace WordCamp\Blocks;
 
 defined( 'WPINC' ) || die();
@@ -17,9 +18,8 @@ function load_includes() {
 	$components_dir = PLUGIN_DIR . 'source/components/';
 	$hooks_dir      = PLUGIN_DIR . 'source/hooks/';
 
-	require_once $includes_dir . 'definitions.php';
-
 	// Utilities.
+	require_once $includes_dir . 'definitions.php';
 	require_once $includes_dir . 'content.php';
 
 	// Components.
@@ -36,6 +36,15 @@ function load_includes() {
 
 	// Hooks.
 	require_once $hooks_dir . 'latest-posts/controller.php';
+
+
+	$full_schedule_test_sites = array(
+		928, // 2017.testing
+	);
+
+	if ( 'development' === WORDCAMP_ENVIRONMENT || in_array( get_current_blog_id(), $full_schedule_test_sites, true ) ) {
+		require_once $blocks_dir . 'schedule/controller.php';
+	}
 }
 
 add_action( 'plugins_loaded', __NAMESPACE__ . '\load_includes' );
