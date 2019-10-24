@@ -6,13 +6,15 @@ import { CheckboxControl, PanelBody, ToggleControl } from '@wordpress/components
 import { Component, Fragment } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
+
 /*
  * @todo
  * make this dynamic
- * props mark, mel, corey
+ * add default schema and options, like speakers?
+ *
+ * commit w/ props mark, mel, corey. look for any others as well
  */
 
-// todo add default schema and options, like speakers?
 
 /**
  * Render the inspector Controls for the Schedule block.

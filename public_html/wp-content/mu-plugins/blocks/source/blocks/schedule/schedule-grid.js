@@ -11,23 +11,38 @@ import { _x } from '@wordpress/i18n';
 import { NoContent } from '../../components/';
 import { Sessions } from './sessions';
 
+
 /* todo
+ *
+ * rebase/merge any additional changes to session-end-time branch
+ *      don't merge before that, and maybe #303 are merged
+ *
+ * doesn't show what the end time is. if last session is 2:30pm, no way to know if it goes until 3pm or 5pm or 8pm
+ *  might already be a note elsewhere about this
+ *  asked mel for thoughts - https://make.wordpress.org/community/2018/10/26/wordcamp-block-schedule/#comment-27665
  *
  * diff against other blocks for consistency
  * php/js lint everything
- * kelly's feedback
+ * kelly & mark's feedback
+ *      https://github.com/WordPress/wordcamp.org/pull/104#pullrequestreview-275511236
+ *      https://github.com/WordPress/wordcamp.org/pull/104#discussion_r315372667
+ *      https://github.com/WordPress/wordcamp.org/pull/104#discussion_r320027958
+ *      https://github.com/WordPress/wordcamp.org/pull/104#discussion_r320033514
+ *      https://github.com/WordPress/wordcamp.org/pull/104#issuecomment-528121891
  *
  *
  * test under ie11 - should just see mobile/fallback schedule
  * test other camps, like seattle 2017, berlin 2017, 2018.montreal, wcus, new york, europe, boston, kansas city,
  * miama, tokyo, etc across various years
- *      test 2019.europe b/c matt span some but not all tracks - should be fine b/c alphabetical
- * 	    what will this look lke with 15 tracks ala 2012.nyc? or a slightly-less-unreasonable 8 tracks ala
- * 	    2009.newyork ? probably don't need to handle those edge cases
+ *      test 2019.europe b/c matt's session spans some but not all tracks - should be fine b/c alphabetical
+ * 	    what will this look like with 15 tracks ala 2012.nyc?
+ *   	    or a slightly-less-unreasonable 8 tracks ala 2009.newyork ?
+ * 	        probably don't need to handle those edge cases
  *
  *
  * `git diff production` and check each line to make sure it's clean
  */
+
 
 /**
  * Render the schedule for a specific day.
@@ -257,7 +272,7 @@ export function ScheduleGrid( { attributes, entities } ) {
 	const { date_format, time_format } = settings;
 	const scheduleDays = [];
 
-	// todo should probably have teh API return them already grouped, b/c will need that for front-end, so might
+	// todo should probably have the API return them already grouped, b/c will need that for front-end, so might
 	// as well reuse it here
 		// er, well, no, because then would have to make an extra http request instead of reusing data that's
 		// already fetched
@@ -265,7 +280,7 @@ export function ScheduleGrid( { attributes, entities } ) {
 
 	const chosenSessionsGroupedByDate = derivedSessions.reduce( ( groups, session ) => {
 		if ( 0 === session.derived.startTime ) {
-			// todo it'd be more efficient to change withSelect() params to that you only query for sessions that
+			// todo it'd be more efficient to change withSelect() params so that you only query for sessions that
 			// have a time assigned in the first place
 				// except that already have all the sessions cached from the sessions block query? but that
 				// doesn't normally happen on the same page as the block right?

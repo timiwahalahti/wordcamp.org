@@ -353,8 +353,9 @@ function get_session_posts( array $attributes ) {
  * @return array
  */
 function get_attributes_schema() {
-	// todo need to update this once pr is merged to make them dry
-	// this one will be different than others in that it wont have a 'mode', so need to make that not a shared attribute? or maybe leave it sahred since most blocks use it, but explicilty remove it here?
+	// todo need to update this once pr is merged, to make them DRY
+	// this one will be different than others in that it wont have a 'mode', so need to make that not a shared attribute?
+		// or maybe leave it shared since most blocks use it, but explicitly remove it here?
 
 	return array(
 		'item_ids' => array(
