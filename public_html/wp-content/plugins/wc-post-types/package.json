@@ -1,0 +1,23 @@
+{
+	"name": "wc-post-types",
+	"version": "1.0.0",
+	"description": "Sessions, Speakers, Sponsors and much more.",
+	"author": "WordCamp Team",
+	"license": "GPL-2.0-or-later",
+	"private": true,
+	"keywords": [],
+	"homepage": "https://github.com/WordPress/wordcamp.org/tree/production/public_html/wp-content/plugins/wc-post-types",
+	"repository": "git+https://github.com/WordPress/wordcamp.org.git",
+	"bugs": {
+		"url": "https://github.com/WordPress/wordcamp.org/issues?q=label%3A%22%5BComponent%5D+WC-Post-Types%22"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "6.0.0"
+	},
+	"scripts": {
+		"start": "wp-scripts start sessions=./js/src/session/index.js",
+		"build": "wp-scripts build sessions=./js/src/session/index.js",
+		"lint:js": "wp-scripts lint-js",
+		"lint:pkg-json": "wp-scripts lint-pkg-json"
+	}
+}

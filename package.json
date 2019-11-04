@@ -12,7 +12,8 @@
 		"url": "https://github.com/WordPress/wordcamp.org/issues/"
 	},
 	"workspaces": [
-		"public_html/wp-content/mu-plugins/blocks"
+		"public_html/wp-content/mu-plugins/blocks",
+		"public_html/wp-content/plugins/wc-post-types"
 	],
 	"browserslist": [
 		"extends @wordpress/browserslist-config"
