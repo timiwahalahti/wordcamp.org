@@ -21,19 +21,10 @@ require_once 'favorite-schedule-shortcode.php';
  * @return void
  */
 function expose_public_post_meta() {
-	$meta_defaults = [
+	$meta_defaults = array(
 		'show_in_rest' => true,
 		'single'       => true,
-	];
-
-	$default_integer = wp_parse_args( array( 'type' => 'integer' ), $meta_defaults );
-
-	// Session.
-	register_post_meta( 'wcb_session', '_wcpt_session_time',     $default_integer );
-	register_post_meta( 'wcb_session', '_wcpt_session_duration', $default_integer );
-	register_post_meta( 'wcb_session', '_wcpt_session_type', $meta_defaults );
-	register_post_meta( 'wcb_session', '_wcpt_session_slides', $meta_defaults );
-	register_post_meta( 'wcb_session', '_wcpt_session_video', $meta_defaults );
+	);
 
 	// Sponsor.
 	register_post_meta( 'wcb_sponsor', '_wcpt_sponsor_website', $meta_defaults );
