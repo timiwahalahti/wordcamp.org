@@ -310,8 +310,9 @@ class WordCamp_Post_Types_Plugin {
 			case 'edit-wcb_sponsor':
 			case 'edit-wcb_session':
 			case 'wcb_sponsor':
+			case 'wcb_session':
 			case 'dashboard':
-				wp_enqueue_style( 'wcpt-admin', plugins_url( '/css/admin.css', __FILE__ ), array(), 1 );
+				wp_enqueue_style( 'wcpt-admin', plugins_url( '/css/admin.css', __FILE__ ), array(), 2 );
 				break;
 			default:
 		}
@@ -1311,33 +1312,21 @@ class WordCamp_Post_Types_Plugin {
 		</p>
 
 		<p>
-			<label for="wcpt-session-length-hours">
-				<?php esc_html_e( 'Length:', 'wordcamporg' ); ?>
-			</label>
+			<fieldset id="wcpt-session-length-container">
+				<legend>
+					<?php esc_html_e( 'Length:', 'wordcamporg' ); ?>
+				</legend>
 
-			<select id="wcpt-session-length-hours" name="wcpt-session-length-hours" aria-label="<?php esc_html_e( 'Session Length: Hours', 'wordcamporg' ); ?>">
-				<?php for ( $i = 0; $i <= 23; $i++ ) : ?>
-					<option value="<?php echo esc_attr( $i ); ?>" <?php selected( $i, $session_length_hours ); ?>>
-						<?php echo esc_html( $i ); ?>
-					</option>
-				<?php endfor; ?>
-			</select>
-			<label for="wcpt-session-length-hours">
-				<?php
-				esc_html_e( 'hours', 'wordcamporg' );
-				?>
-			</label>
+				<input id="wcpt-session-length-hours" name="wcpt-session-length-hours" type="number" min="0" max="23" value="<?php echo absint( $session_hours ); ?>">
+				<label for="wcpt-session-length-hours">
+					<?php esc_html_e( 'hours,', 'wordcamporg' ); ?>
+				</label>
 
-			<select id="wcpt-session-length-minutes" name="wcpt-session-length-minutes" aria-label="<?php esc_html_e( 'Session Length: Minutes', 'wordcamporg' ); ?>">
-				<?php for ( $i = '00'; (int) $i <= 55; $i = sprintf( '%02d', (int) $i + 5 ) ) : ?>
-					<option value="<?php echo esc_attr( $i ); ?>" <?php selected( $i, $session_length_minutes ); ?>>
-						<?php echo esc_html( $i ); ?>
-					</option>
-				<?php endfor; ?>
-			</select>
-			<label for="wcpt-session-length-minutes">
-				<?php esc_html_e( 'minutes', 'wordcamporg' ); ?>
-			</label>
+				<input id="wcpt-session-length-minutes" name="wcpt-session-length-minutes" type="number" min="0" max="59" value="<?php echo absint( $session_minutes ); ?>">
+				<label for="wcpt-session-length-minutes">
+					<?php esc_html_e( 'minutes', 'wordcamporg' ); ?>
+				</label>
+			</fieldset>
 		</p>
 
 		<p>
