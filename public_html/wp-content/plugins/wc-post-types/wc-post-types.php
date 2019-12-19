@@ -1317,12 +1317,12 @@ class WordCamp_Post_Types_Plugin {
 					<?php esc_html_e( 'Length:', 'wordcamporg' ); ?>
 				</legend>
 
-				<input id="wcpt-session-length-hours" name="wcpt-session-length-hours" type="number" min="0" max="23" value="<?php echo absint( $session_hours ); ?>">
+				<input id="wcpt-session-length-hours" name="wcpt-session-length-hours" type="number" min="0" max="23" value="<?php echo absint( $session_length_hours ); ?>">
 				<label for="wcpt-session-length-hours">
 					<?php esc_html_e( 'hours,', 'wordcamporg' ); ?>
 				</label>
 
-				<input id="wcpt-session-length-minutes" name="wcpt-session-length-minutes" type="number" min="0" max="59" value="<?php echo absint( $session_minutes ); ?>">
+				<input id="wcpt-session-length-minutes" name="wcpt-session-length-minutes" type="number" min="0" max="59" value="<?php echo absint( $session_length_minutes ); ?>">
 				<label for="wcpt-session-length-minutes">
 					<?php esc_html_e( 'minutes', 'wordcamporg' ); ?>
 				</label>
