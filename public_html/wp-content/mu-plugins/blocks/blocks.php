@@ -34,10 +34,6 @@ function load_includes() {
 	require_once $blocks_dir . 'sponsors/controller.php';
 	require_once $blocks_dir . 'live-schedule/controller.php';
 
-	// Hooks.
-	require_once $hooks_dir . 'latest-posts/controller.php';
-
-
 	$full_schedule_test_sites = array(
 		928, // 2017.testing
 	);
@@ -45,6 +41,9 @@ function load_includes() {
 	if ( 'development' === WORDCAMP_ENVIRONMENT || in_array( get_current_blog_id(), $full_schedule_test_sites, true ) ) {
 		require_once $blocks_dir . 'schedule/controller.php';
 	}
+
+	// Hooks.
+	require_once $hooks_dir . 'latest-posts/controller.php';
 }
 
 add_action( 'plugins_loaded', __NAMESPACE__ . '\load_includes' );

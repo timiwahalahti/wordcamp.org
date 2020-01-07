@@ -20,6 +20,7 @@ import { Sessions } from './sessions';
  * doesn't show what the end time is. if last session is 2:30pm, no way to know if it goes until 3pm or 5pm or 8pm
  *  might already be a note elsewhere about this
  *  asked mel for thoughts - https://make.wordpress.org/community/2018/10/26/wordcamp-block-schedule/#comment-27665
+ *  try adding end time to each row header - https://make.wordpress.org/community/2018/10/26/wordcamp-block-schedule/#comment-27668
  *
  * diff against other blocks for consistency
  * php/js lint everything
@@ -145,6 +146,7 @@ function deriveSessionStartEndTimes( sessions ) {
 
 		const hoursInMs = parseInt( session.meta._wcpt_session_length_hours ) * 60 * 60 * 1000;
 		const minutesInMs = parseInt( session.meta._wcpt_session_length_minutes ) * 60 * 1000;
+			// switch out for wp.date constants when available -- https://github.com/WordPress/gutenberg/issues/19496
 
 		session.derived.endTime = session.derived.startTime + hoursInMs + minutesInMs;
 
@@ -269,6 +271,7 @@ export function ScheduleGrid( { attributes, entities } ) {
 	}
 
 	const derivedSessions = deriveSessionTerms( deriveSessionStartEndTimes( sessions ) );
+		// todo sessions block breaks if schedule block is also present, maybe b/c they share data source and schedule block is modifying sessions around here, or even w/ the withSelect() call?
 	const { date_format, time_format } = settings;
 	const scheduleDays = [];
 
@@ -277,6 +280,7 @@ export function ScheduleGrid( { attributes, entities } ) {
 		// er, well, no, because then would have to make an extra http request instead of reusing data that's
 		// already fetched
 		// would it be fetched already? probably not unless there's an existing sessions block on the page
+		// don't wanna reuse b/c modifying it messes up the sessions block, they need to have separate copies
 
 	const chosenSessionsGroupedByDate = derivedSessions.reduce( ( groups, session ) => {
 		if ( 0 === session.derived.startTime ) {
