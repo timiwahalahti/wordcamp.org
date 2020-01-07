@@ -29,9 +29,8 @@ function expose_public_post_meta() {
 	$default_integer = wp_parse_args( array( 'type' => 'integer' ), $meta_defaults );
 
 	// Session.
-	register_post_meta( 'wcb_session', '_wcpt_session_time',           $default_integer );
-	register_post_meta( 'wcb_session', '_wcpt_session_length_hours',   $default_integer );
-	register_post_meta( 'wcb_session', '_wcpt_session_length_minutes', $default_integer );
+	register_post_meta( 'wcb_session', '_wcpt_session_time',     $default_integer );
+	register_post_meta( 'wcb_session', '_wcpt_session_duration', $default_integer );
 	register_post_meta( 'wcb_session', '_wcpt_session_type', $meta_defaults );
 	register_post_meta( 'wcb_session', '_wcpt_session_slides', $meta_defaults );
 	register_post_meta( 'wcb_session', '_wcpt_session_video', $meta_defaults );

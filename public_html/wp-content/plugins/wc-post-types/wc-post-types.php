@@ -12,8 +12,7 @@ require_once 'inc/deprecated.php';
 class WordCamp_Post_Types_Plugin {
 	protected $wcpt_permalinks;
 
-	const DEFAULT_LENGTH_HOURS   = '00';
-	const DEFAULT_LENGTH_MINUTES = '50';
+	const SESSION_DEFAULT_DURATION = 50 * MINUTE_IN_SECONDS;
 
 	/**
 	 * Fired when plugin file is loaded.
@@ -1274,8 +1273,9 @@ class WordCamp_Post_Types_Plugin {
 		$session_hours    = ( $session_time ) ? date( 'g', $session_time )     : date( 'g' );
 		$session_minutes  = ( $session_time ) ? date( 'i', $session_time )     : '00';
 		$session_meridiem = ( $session_time ) ? date( 'a', $session_time )     : 'am';
-		$session_length_hours   = $post->_wcpt_session_length_hours   ?? self::DEFAULT_LENGTH_HOURS;
-		$session_length_minutes = $post->_wcpt_session_length_minutes ?? self::DEFAULT_LENGTH_MINUTES;
+		$session_duration       = $post->_wcpt_session_duration ?? self::SESSION_DEFAULT_DURATION;
+		$session_length_hours   = floor( $session_duration / HOUR_IN_SECONDS );
+		$session_length_minutes = floor( ( $session_duration / MINUTE_IN_SECONDS ) % MINUTE_IN_SECONDS );
 		$session_type     = get_post_meta( $post->ID, '_wcpt_session_type', true );
 		$session_slides   = get_post_meta( $post->ID, '_wcpt_session_slides', true );
 		$session_video    = get_post_meta( $post->ID, '_wcpt_session_video',  true );
@@ -1528,8 +1528,12 @@ class WordCamp_Post_Types_Plugin {
 			) );
 			update_post_meta( $post_id, '_wcpt_session_time', $session_time );
 
-			update_post_meta( $post_id, '_wcpt_session_length_hours',   absint( $_POST['wcpt-session-length-hours']   ) );
-			update_post_meta( $post_id, '_wcpt_session_length_minutes', absint( $_POST['wcpt-session-length-minutes'] ) );
+			$duration = absint(
+				( $_POST['wcpt-session-length-hours']   * HOUR_IN_SECONDS ) +
+				( $_POST['wcpt-session-length-minutes'] * MINUTE_IN_SECONDS )
+			);
+
+			update_post_meta( $post_id, '_wcpt_session_duration', $duration );
 
 			// Update session type.
 			$session_type = sanitize_text_field( $_POST['wcpt-session-type'] );
