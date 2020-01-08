@@ -1277,8 +1277,8 @@ class WordCamp_Post_Types_Plugin {
 		$session_minutes  = ( $session_time ) ? date( 'i', $session_time )     : '00';
 		$session_meridiem = ( $session_time ) ? date( 'a', $session_time )     : 'am';
 		$session_duration       = $post->_wcpt_session_duration ?? self::SESSION_DEFAULT_DURATION;
-		$session_length_hours   = floor( $session_duration / HOUR_IN_SECONDS );
-		$session_length_minutes = floor( ( $session_duration / MINUTE_IN_SECONDS ) % MINUTE_IN_SECONDS );
+		$session_duration_hours   = floor( $session_duration / HOUR_IN_SECONDS );
+		$session_duration_minutes = floor( ( $session_duration / MINUTE_IN_SECONDS ) % MINUTE_IN_SECONDS );
 		$session_type     = get_post_meta( $post->ID, '_wcpt_session_type', true );
 		$session_slides   = get_post_meta( $post->ID, '_wcpt_session_slides', true );
 		$session_video    = get_post_meta( $post->ID, '_wcpt_session_video',  true );
@@ -1315,18 +1315,18 @@ class WordCamp_Post_Types_Plugin {
 		</p>
 
 		<p>
-			<fieldset id="wcpt-session-length-container">
+			<fieldset id="wcpt-session-duration-container">
 				<legend>
-					<?php esc_html_e( 'Length:', 'wordcamporg' ); ?>
+					<?php esc_html_e( 'Duration:', 'wordcamporg' ); ?>
 				</legend>
 
-				<input id="wcpt-session-length-hours" name="wcpt-session-length-hours" type="number" min="0" max="23" value="<?php echo absint( $session_length_hours ); ?>">
-				<label for="wcpt-session-length-hours">
+				<input id="wcpt-session-duration-hours" name="wcpt-session-duration-hours" type="number" min="0" max="23" value="<?php echo absint( $session_duration_hours ); ?>">
+				<label for="wcpt-session-duration-hours">
 					<?php esc_html_e( 'hours,', 'wordcamporg' ); ?>
 				</label>
 
-				<input id="wcpt-session-length-minutes" name="wcpt-session-length-minutes" type="number" min="0" max="59" value="<?php echo absint( $session_length_minutes ); ?>">
-				<label for="wcpt-session-length-minutes">
+				<input id="wcpt-session-duration-minutes" name="wcpt-session-duration-minutes" type="number" min="0" max="59" value="<?php echo absint( $session_duration_minutes ); ?>">
+				<label for="wcpt-session-duration-minutes">
 					<?php esc_html_e( 'minutes', 'wordcamporg' ); ?>
 				</label>
 			</fieldset>
@@ -1532,8 +1532,8 @@ class WordCamp_Post_Types_Plugin {
 			update_post_meta( $post_id, '_wcpt_session_time', $session_time );
 
 			$duration = absint(
-				( $_POST['wcpt-session-length-hours']   * HOUR_IN_SECONDS ) +
-				( $_POST['wcpt-session-length-minutes'] * MINUTE_IN_SECONDS )
+				( $_POST['wcpt-session-duration-hours']   * HOUR_IN_SECONDS ) +
+				( $_POST['wcpt-session-duration-minutes'] * MINUTE_IN_SECONDS )
 			);
 
 			update_post_meta( $post_id, '_wcpt_session_duration', $duration );
