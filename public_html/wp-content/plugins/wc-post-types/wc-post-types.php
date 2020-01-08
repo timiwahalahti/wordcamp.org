@@ -14,6 +14,9 @@ class WordCamp_Post_Types_Plugin {
 
 	const SESSION_DEFAULT_DURATION = 50 * MINUTE_IN_SECONDS;
 
+	// todo search-replace all "length" to "duration" ? prob
+		// need to do _after_ update existing posts to new duration field
+
 	/**
 	 * Fired when plugin file is loaded.
 	 */
