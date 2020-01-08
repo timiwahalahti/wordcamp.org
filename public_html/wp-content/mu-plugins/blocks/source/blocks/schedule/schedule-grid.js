@@ -144,11 +144,10 @@ function deriveSessionStartEndTimes( sessions ) {
 		session.derived = session.derived || {};
 		session.derived.startTime = parseInt( session.meta._wcpt_session_time ) * 1000; // Convert to milliseconds.
 
-		const hoursInMs = parseInt( session.meta._wcpt_session_length_hours ) * 60 * 60 * 1000;
-		const minutesInMs = parseInt( session.meta._wcpt_session_length_minutes ) * 60 * 1000;
-			// switch out for wp.date constants when available -- https://github.com/WordPress/gutenberg/issues/19496
+		const durationInMs = parseInt( session.meta._wcpt_session_duration ) * 1000;
+		// switch out for wp.date constants when available -- https://github.com/WordPress/gutenberg/issues/19496
 
-		session.derived.endTime = session.derived.startTime + hoursInMs + minutesInMs;
+		session.derived.endTime = session.derived.startTime + durationInMs;
 
 		/*
 		 * The raw session time provided by the API should not be used because it does not account for the

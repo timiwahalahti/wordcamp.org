@@ -259,9 +259,8 @@ function get_start_end_times( $sessions ) {
  * @return string
  */
 function get_session_end_time( $session ) {
-	$start_time      = $session->_wcpt_session_time;
-	$session_hours   = $session->_wcpt_session_length_hours;
-	$session_minutes = $session->_wcpt_session_length_minutes;
+	$start_time = $session->_wcpt_session_time;
+	$duration   = $session->_wcpt_session_duration;
 
 	/*
 	 * Retroactively set session length.
@@ -272,15 +271,16 @@ function get_session_end_time( $session ) {
 	 * for users of the block, though, because the length will be obvious when they look at the schedule, so
 	 * they'll fix it if the default doesn't match the actual length.
 	 */
-	if ( '' === $session_hours && '' === $session_minutes ) {
-		$session_hours   = WordCamp_Post_Types_Plugin::DEFAULT_LENGTH_HOURS;
-		$session_minutes = WordCamp_Post_Types_Plugin::DEFAULT_LENGTH_MINUTES;
+	if ( empty( $duration ) ) {
+		// should check for '' instead?
 
-		update_post_meta( $session->ID, '_wcpt_session_length_hours',   $session_hours   );
-		update_post_meta( $session->ID, '_wcpt_session_length_minutes', $session_minutes );
+		$duration = WordCamp_Post_Types_Plugin::SESSION_DEFAULT_DURATION;
+		var_dump($duration, $session);wp_die();
+		// todo re-test now that switched to duration
+
+		update_post_meta( $session->ID, '_wcpt_session_duration', $duration );
 	}
 
-	$duration = absint( $session_hours ) * HOUR_IN_SECONDS + absint( $session_minutes ) * MINUTE_IN_SECONDS;
 	$end_time = $start_time + $duration;
 
 	return date( 'Hi', $end_time );

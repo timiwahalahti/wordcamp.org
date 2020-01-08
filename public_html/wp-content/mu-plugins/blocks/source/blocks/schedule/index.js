@@ -19,6 +19,7 @@ const supports = {
 
 export const SETTINGS = {
 	title       : __( 'Schedule', 'wordcamporg' ),
+		// todo rename files and user-facing labels to something like "full schedule" to avoid confusion w/ "live schedule" ?
 	description : __( "Display your WordCamp's awesome schedule.", 'wordcamporg' ),
 	icon        : ICON,
 	category    : 'wordcamp',

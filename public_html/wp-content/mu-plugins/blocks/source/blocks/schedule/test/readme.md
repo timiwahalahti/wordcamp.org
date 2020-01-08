@@ -11,3 +11,8 @@ For more details on use/edge cases, see:
 * https://meta.trac.wordpress.org/ticket/3117
 * https://make.wordpress.org/community/2018/10/26/wordcamp-block-schedule/
 * https://css-tricks.com/building-a-conference-schedule-with-css-grid/
+
+
+
+after 299 finalized and merged
+	delete the old hours/minutes meta fields, and re-export the wrx w/ the new duration field
