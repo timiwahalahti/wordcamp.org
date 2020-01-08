@@ -25,13 +25,15 @@ export function Sessions( { sessions, allTracks, timeFormat } ) {
 	const timeGroups = [];
 	const sortedKeys = Object.keys( sessionsByTimeSlot ).sort();
 
-	for ( const key of sortedKeys ) {
-		const timestamp = parseInt( key );
+	for ( let i = 0; i < sortedKeys.length; i++ ) {
+		const key       = sortedKeys[ i ];
+		const startTime = parseInt( key );
+		const endTime   = parseInt( sortedKeys[ i + 1 ] );
 
 		// gmdate() is used because the timestamp is already in the local timezone.
 		const gridRow = `
-			time-${ gmdate( 'Hi', timestamp ) } /
-			time-${ gmdate( 'Hi', timestamp ) }
+			time-${ gmdate( 'Hi', startTime ) } /
+			time-${ gmdate( 'Hi', startTime ) }
 		`;
 
 		const classes = classnames(
@@ -41,11 +43,11 @@ export function Sessions( { sessions, allTracks, timeFormat } ) {
 
 		timeGroups.push(
 			<h3
-				key={ timestamp }
+				key={ startTime }
 				className={ classes }
 				style={ { gridRow } }
 			>
-				{ gmdate( timeFormat, timestamp ) }
+				{ gmdate( timeFormat, startTime ) } - { gmdate( timeFormat, endTime ) }
 			</h3>
 		);
 

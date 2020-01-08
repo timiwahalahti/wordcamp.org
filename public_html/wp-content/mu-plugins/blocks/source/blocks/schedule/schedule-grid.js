@@ -17,11 +17,6 @@ import { Sessions } from './sessions';
  * rebase/merge any additional changes to session-end-time branch
  *      don't merge before that, and maybe #303 are merged
  *
- * doesn't show what the end time is. if last session is 2:30pm, no way to know if it goes until 3pm or 5pm or 8pm
- *  might already be a note elsewhere about this
- *  asked mel for thoughts - https://make.wordpress.org/community/2018/10/26/wordcamp-block-schedule/#comment-27665
- *  try adding end time to each row header - https://make.wordpress.org/community/2018/10/26/wordcamp-block-schedule/#comment-27668
- *
  * diff against other blocks for consistency
  * php/js lint everything
  * kelly & mark's feedback
