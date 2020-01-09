@@ -17,10 +17,6 @@ import { Sessions } from './sessions';
  * rebase/merge any additional changes to session-end-time branch
  *      don't merge before that, and maybe #303 are merged
  *
- * add a warning if a session overlaps another session in the same track
- *      e.g., A is from 9:30 - 10:30, and B is from 10:15 - 11.
- *      it can be hard to visually detect that, and confusing as to why it's happening
- *      might be able to do something similar to sessionSpansNonContiguousTracks()
  *
  * diff against other blocks for consistency
  * php/js lint everything

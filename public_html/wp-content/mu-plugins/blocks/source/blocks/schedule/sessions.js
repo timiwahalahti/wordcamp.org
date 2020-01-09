@@ -29,6 +29,8 @@ export function Sessions( { sessions, allTracks, timeFormat } ) {
 		const key       = sortedKeys[ i ];
 		const startTime = parseInt( key );
 		const endTime   = parseInt( sortedKeys[ i + 1 ] );
+			// this is wrong, the end time should be the end time of the session, not the start time of the next session
+			// should be same most of time, but wont be when user error, and it's important to show that there's an error
 
 		// gmdate() is used because the timestamp is already in the local timezone.
 		const gridRow = `
@@ -146,6 +148,14 @@ function Session( { session, allTracks } ) {
 		endTrackId = startTrackId;
 	}
 
+	//* add a warning if a session overlaps another session in the same track
+ //*      e.g., A is from 9:30 - 10:30, and B is from 10:15 - 11.
+ //*      it can be hard to visually detect that, and confusing as to why it's happening
+ //
+	const overlapsAnother = sessionOverlapsAnother(
+		assignedTracks.map( track => track.id )
+	);
+
 	const gridColumn = `
 		wordcamp-schedule-track-${ startTrackId } /
 		wordcamp-schedule-track-${ endTrackId }
@@ -229,6 +239,12 @@ function Session( { session, allTracks } ) {
 					{ __( 'Warning: Sessions cannot span non-contiguous tracks.', 'wordcamporg' ) }
 				</p>
 			}
+
+			{ overlapsAnother &&
+				<p className="notice notice-warning notice-spans-non-contiguous-tracks">
+					{ __( 'Warning: This overlaps another session in the same track.', 'wordcamporg' ) }
+				</p>
+			}
 		</div>
 	);
 }
@@ -242,7 +258,7 @@ function Session( { session, allTracks } ) {
  * This assumes that both arrays are sorted using the same criteria, and that their order matches the order in
  * which they appear in the schedule.
  *
- * @param {Array} assignedTrackIds
+ * @param {Array} assignedTrackIds Tracks that the given session is assigned to.
  * @param {Array} allTrackIds
  *
  * @return {boolean}
@@ -266,4 +282,27 @@ function sessionSpansNonContiguousTracks( assignedTrackIds, allTrackIds ) {
 	} );
 
 	return toggleCount > 2;
+}
+
+
+// *      might be able to do something similar to sessionSpansNonContiguousTracks()
+// *      need to account for sessions that are in multiple tracks
+//// todo
+function sessionOverlapsAnother( assignedTrackIds ) {
+	// what to pass in?
+		// caller doesn't have access to other sessions
+		// maybe use context here?
+
+	// test w/ day that has no sessions
+
+	// get all of the sessions in each track (this will contain dups if sessino is in more than 1 track )
+		// for each track
+			// for each session
+				// the compare times to check if overlap
+
+	// or maybe diff approach, pass in the session, and the session that came before it, and the session that comes after it
+		// the compare times to check if overlap
+
+
+	return false;
 }
