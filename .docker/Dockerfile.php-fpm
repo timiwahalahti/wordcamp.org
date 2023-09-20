@@ -18,7 +18,8 @@ RUN apt-get update \
         ruby-dev \
         subversion \
         vim \
-        wget
+        wget \
+        libxrender1
 
 # Install additional PHP extensions.
 RUN docker-php-ext-install -j "$(nproc)" \
@@ -37,7 +38,7 @@ COPY wordcamp.test.pem     /etc/ssl/certs/wordcamp.test.pem
 COPY wordcamp.test.key.pem /etc/ssl/private/wordcamp.test.key.pem
 
 # Install `wkhtmltopdf` for WordCamp Docs, CampTix Invoices, etc. See https://stackoverflow.com/a/38336153/1845153
-RUN curl -L https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb > wkhtmltox.deb
+RUN curl -L https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.stretch_amd64.deb > wkhtmltox.deb
 RUN apt install ./wkhtmltox.deb -y
 RUN rm ./wkhtmltox.deb
 
